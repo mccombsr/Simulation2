@@ -22,6 +22,14 @@ export default class Dashboard extends Component {
             })
     }
 
+    handleDelete(){
+        axios.delete(`/api/delete/${this.state.houses.id}`)
+        .then(res=>{
+            console.log(res);
+            console.log(res.data);
+        })
+    }
+
     render() {
         let houses = this.state.houses.map((house, i) => {
             return (

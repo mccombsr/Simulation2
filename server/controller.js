@@ -22,6 +22,18 @@ module.exports = {
             console.log(err)
         })
         // res.send(console.log(product_name, price, image_url));
+    },
+    delete: (req, res)=>{
+        let {id} = req.params;
+        const dbInstance = req.app.get('db');
+        dbInstance.delete_house([id])
+        .then((response)=>{
+            res.sendStatus(200)
+        })
+        .catch((err)=>{
+            res.status(500).send({errorMessage: `Why didn't that work?!`})
+            console.log(err)
+        })
     }
 
 }
