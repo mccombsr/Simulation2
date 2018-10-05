@@ -28,7 +28,7 @@ module.exports = {
         const dbInstance = req.app.get('db');
         dbInstance.delete_house([id])
         .then((response)=>{
-            res.sendStatus(200)
+            res.send(response)
         })
         .catch((err)=>{
             res.status(500).send({errorMessage: `Why didn't that work?!`})

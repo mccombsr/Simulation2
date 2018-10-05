@@ -11,6 +11,7 @@ export default class Dashboard extends Component {
             houses: []
         }
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     componentDidMount() {
@@ -22,11 +23,11 @@ export default class Dashboard extends Component {
             })
     }
 
-    handleDelete(){
-        axios.delete(`/api/delete/${this.state.houses.id}`)
+    handleDelete(prop){
+        axios.delete(`/api/delete/${prop}`)
         .then(res=>{
             console.log(res);
-            console.log(res.data);
+            this.setState({houses: res.data});
         })
     }
 
@@ -39,6 +40,8 @@ export default class Dashboard extends Component {
                 city={house.city}
                 state={house.state}
                 zip={house.zip}
+                id={house.id}
+                handleDelete ={this.handleDelete}
                 />
                     
             )
