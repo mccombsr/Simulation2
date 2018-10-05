@@ -1,7 +1,9 @@
 require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const massive = require('massive');
+const controller = require('./controller');
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,6 +16,8 @@ massive(process.env.CONNECTION_STRING)
 .catch((err)=>{
     console.log(err)
 })
+
+app.get('/api/houses', controller.getAll);
 
 const port = process.env.PORT;
 app.listen(port, ()=>{
