@@ -18,6 +18,7 @@ massive(process.env.CONNECTION_STRING)
 })
 
 app.get('/api/houses', controller.getAll);
+app.post('/api/house', controller.create);
 
 const port = process.env.PORT;
 app.listen(port, ()=>{

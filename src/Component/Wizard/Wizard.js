@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default class Wizard extends Component {
     constructor() {
         super();
         this.state = {
-            name: '',
+            property_name: '',
             address: '',
             city: '',
             state: '',
@@ -16,10 +17,11 @@ export default class Wizard extends Component {
         this.handleCityChange = this.handleCityChange.bind(this);
         this.handleStateChange = this.handleStateChange.bind(this);
         this.handleZipChange = this.handleZipChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleNameChange(event) {
-        this.setState({ name: event.target.value })
+        this.setState({ property_name: event.target.value })
     }
     handleAddressChange(event) {
         this.setState({ address: event.target.value })
@@ -32,6 +34,18 @@ export default class Wizard extends Component {
     }
     handleZipChange(event) {
         this.setState({ zip: event.target.value })
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        const house = this.state;
+
+        axios.post(`/api/house`, house)
+            .then(res => {
+                // console.log(res);
+                // console.log(res.data)
+
+            })
     }
 
     render() {
@@ -47,21 +61,22 @@ export default class Wizard extends Component {
                         <input type="text" value={this.state.name} onChange={this.handleNameChange} />
                     </div>
                     <div>
-                    <h3>Address</h3>
+                        <h3>Address</h3>
                         <input type="text" value={this.state.address} onChange={this.handleAddressChange} />
                     </div>
                     <div>
-                    <h3>City</h3>
+                        <h3>City</h3>
                         <input type="text" value={this.state.city} onChange={this.handleCityChange} />
                     </div>
                     <div>
-                    <h3>State</h3>
+                        <h3>State</h3>
                         <input type="text" value={this.state.state} onChange={this.handleStateChange} />
                     </div>
                     <div>
-                    <h3>Zip</h3>
+                        <h3>Zip</h3>
                         <input type="text" value={this.state.zip} onChange={this.handleZipChange} />
                     </div>
+                    <button onClick={this.handleSubmit}>Complete</button>
                 </div>
             </div>
         )
